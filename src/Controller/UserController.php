@@ -50,7 +50,9 @@ class UserController extends AbstractController
             $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
             $em->persist($user);
             $em->flush();
-
+            
+            $this->addFlash('success', 'Utilisateur créé avec succès.');
+            
             return $this->redirectToRoute('user_index');
         }
 
