@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <h1>Bienvenue sur notre blog</h1>
+
+    <h2>Derniers articles</h2>
+    <ul>
+        {% for article in articles %}
+            <li>
+                <a href="{{ path('article_show', {'id': article.id}) }}">{{ article.title }}</a>
+                <small>publié le {{ article.createdAt|date('d/m/Y') }}</small>
+            </li>
+        {% else %}
+            <li>Aucun article disponible pour le moment.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('article_create') }}">Créer un nouvel article</a>
+{% endblock %}

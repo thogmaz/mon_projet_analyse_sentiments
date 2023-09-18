@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'article : {{ article.title }}{% endblock %}
+
+{% block body %}
+    <h1>Détails de l'article : {{ article.title }}</h1>
+
+    <p><strong>ID :</strong> {{ article.id }}</p>
+    <p><strong>Titre :</strong> {{ article.title }}</p>
+    <p><strong>Contenu :</strong> {{ article.content }}</p>
+    <p><strong>Catégorie :</strong> {{ article.category ? article.category.name : 'Non catégorisé' }}</p>
+    <p><strong>Date de création :</strong> {{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : 'Non disponible' }}</p>
+
+    <a href="{{ path('article_edit', {'id': article.id}) }}">Éditer</a>
+    <a href="{{ path('article_delete', {'id': article.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">Supprimer</a>
+    <a href="{{ path('article_index') }}">Retour à la liste des articles</a>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Éditer l'article : {{ article.title }}{% endblock %}
+
+{% block body %}
+    <h1>Éditer l'article : {{ article.title }}</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.title, {'label': 'Titre'}) }}
+        {{ form_row(form.content, {'label': 'Contenu'}) }}
+        {{ form_row(form.category, {'label': 'Catégorie'}) }}
+        {{ form_row(form.tags, {'label': 'Tags'}) }}
+        <button type="submit">Enregistrer les modifications</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('article_show', {'id': article.id}) }}">Retour aux détails de l'article</a>
+    <a href="{{ path('article_index') }}">Retour à la liste des articles</a>
+{% endblock %}

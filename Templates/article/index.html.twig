@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des articles{% endblock %}
+
+{% block body %}
+    <h1>Liste des articles</h1>
+
+    <a href="{{ path('article_create') }}">Créer un nouvel article</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Catégorie</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+                <tr>
+                    <td>{{ article.id }}</td>
+                    <td>{{ article.title }}</td>
+                    <td>{{ article.category ? article.category.name : 'Non catégorisé' }}</td>
+                    <td>
+                        <a href="{{ path('article_show', {'id': article.id}) }}">Voir</a>
+                        <a href="{{ path('article_edit', {'id': article.id}) }}">Éditer</a>
+                        <a href="{{ path('article_delete', {'id': article.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">Supprimer</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Aucun article trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -28,8 +28,9 @@ class UserType extends AbstractType
                     'placeholder' => 'Enter your email address',
                 ],
             ])
-            ->add('password', RepeatedType::class, [
+            ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
+                'mapped' => false,
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Confirm Password'],
             ]);

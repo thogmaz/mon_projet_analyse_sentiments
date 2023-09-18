@@ -66,4 +66,22 @@ class Comment
 
         return $this;
     }
+
+    
+     #[ORM\ManyToOne(targetEntity:Article::class, inversedBy:"comments")]
+     #[ORM\JoinColumn(nullable:false)]
+     
+    private $article;
+
+    public function getArticle(): ?Article
+    {
+        return $this->article;
+    }
+
+    public function setArticle(?Article $article): self
+    {
+        $this->article = $article;
+
+        return $this;
+    }
 }
