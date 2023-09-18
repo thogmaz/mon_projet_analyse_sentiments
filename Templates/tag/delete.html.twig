@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Supprimer le tag{% endblock %}
+
+{% block body %}
+    <h1>Supprimer le tag</h1>
+
+    <p>Êtes-vous sûr de vouloir supprimer le tag "{{ tag.name }}" ?</p>
+
+    <form method="post">
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+        <a href="{{ path('tag_index') }}" class="btn btn-secondary">Annuler</a>
+        {{ csrf_token('delete' ~ tag.id) }}
+    </form>
+{% endblock %}

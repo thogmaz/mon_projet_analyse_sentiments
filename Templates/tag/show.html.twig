@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du tag : {{ tag.name }}{% endblock %}
+
+{% block body %}
+    <h1>Détails du tag : {{ tag.name }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <td>{{ tag.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ tag.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('tag_edit', {'id': tag.id}) }}" class="btn btn-warning">Éditer</a>
+    <a href="{{ path('tag_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+    <form method="post" action="{{ path('tag_delete', {'id': tag.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce tag ?');" style="display:inline-block;">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tag.id) }}">
+        <button class="btn btn-danger">Supprimer</button>
+    </form>
+{% endblock %}

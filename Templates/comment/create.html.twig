@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un nouveau commentaire{% endblock %}
+
+{% block body %}
+    <h1>Créer un nouveau commentaire</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+        <button type="submit" class="btn btn-success">Créer</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('comment_index') }}" class="btn btn-secondary">Retour à la liste des commentaires</a>
+{% endblock %}

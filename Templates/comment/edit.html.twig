@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Éditer le commentaire{% endblock %}
+
+{% block body %}
+    <h1>Éditer le commentaire</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+        <button type="submit" class="btn btn-primary">Sauvegarder</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('comment_show', {'id': comment.id}) }}" class="btn btn-secondary">Retour au commentaire</a>
+    {{ include('comment/_delete_form.html.twig') }}
+{% endblock %}
