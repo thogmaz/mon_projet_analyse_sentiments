@@ -6,14 +6,17 @@
     <h1>Liste des catégories</h1>
 
     <ul>
-        {% for category in categories %}
-            <li>
-                <a href="{{ path('category_show', {'id': category.id}) }}">{{ category.name }}</a>
-            </li>
-        {% else %}
-            <li>Aucune catégorie disponible pour le moment.</li>
-        {% endfor %}
-    </ul>
+    {% for category in categories %}
+        <li>
+            <a href="{{ path('category_show', {'id': category.id}) }}">{{ category.name }}</a>
+            - <a href="{{ path('category_edit', {'id': category.id}) }}">Éditer</a>
+            - <a href="{{ path('category_delete', {'id': category.id}) }}">Supprimer</a>
+        </li>
+    {% else %}
+        <li>Aucune catégorie disponible pour le moment.</li>
+    {% endfor %}
+</ul>
+
 
     <a href="{{ path('category_create') }}">Créer une nouvelle catégorie</a>
 {% endblock %}

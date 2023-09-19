@@ -129,7 +129,8 @@ class Article
      */
     public function getTags(): Collection
     {
-        return $this->tags;
+        return new ArrayCollection($this->tags->toArray());
+
     }
 
     public function addTag(Tag $tag): self

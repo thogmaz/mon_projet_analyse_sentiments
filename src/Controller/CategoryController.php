@@ -25,18 +25,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    
-     #[Route("/category/{id}", name:"category_show")]
-    
-    public function show(Category $category): Response
-    {
-        return $this->render('category/show.html.twig', [
-            'category' => $category,
-        ]);
-    }
-
-    
-     #[Route("/category/create", name:"category_create")]
+    #[Route("/category/create", name:"category_create")]
     
     public function create(Request $request, EntityManagerInterface $em): Response
     {
@@ -53,6 +42,15 @@ class CategoryController extends AbstractController
 
         return $this->render('category/create.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+    
+     #[Route("/category/{id}", name:"category_show")]
+    
+    public function show(Category $category): Response
+    {
+        return $this->render('category/show.html.twig', [
+            'category' => $category,
         ]);
     }
 

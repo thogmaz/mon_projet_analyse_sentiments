@@ -25,18 +25,7 @@ class TagController extends AbstractController
         ]);
     }
 
-    
-     #[Route("/tag/{id}", name:"tag_show")]
-    
-    public function show(Tag $tag): Response
-    {
-        return $this->render('tag/show.html.twig', [
-            'tag' => $tag,
-        ]);
-    }
-
-    
-     #[Route("/tag/create", name:"tag_create")]
+    #[Route("/tag/create", name:"tag_create")]
     
     public function create(Request $request, EntityManagerInterface $em): Response
     {
@@ -53,6 +42,16 @@ class TagController extends AbstractController
 
         return $this->render('tag/create.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    
+     #[Route("/tag/{id}", name:"tag_show")]
+    
+    public function show(Tag $tag): Response
+    {
+        return $this->render('tag/show.html.twig', [
+            'tag' => $tag,
         ]);
     }
 
