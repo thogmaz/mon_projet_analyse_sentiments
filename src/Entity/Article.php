@@ -53,6 +53,7 @@ class Article
 
     public function __construct()
     {
+        $this->createdAt = new \DateTimeImmutable();
         $this->tags = new ArrayCollection();
     }
 

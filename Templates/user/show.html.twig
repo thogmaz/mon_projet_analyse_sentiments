@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'utilisateur : {{ user.username }}{% endblock %}
+
+{% block body %}
+    <h1>Détails de l'utilisateur : {{ user.username }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ user.username }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_edit', {'id': user.id}) }}" class="btn btn-warning">Éditer</a>
+    <a href="{{ path('user_index') }}" class="btn btn-secondary">Retour à la liste</a>
+    
+    <form action="{{ path('user_delete', {'id': user.id}) }}" method="post" style="display:inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+        <button class="btn btn-danger">Supprimer</button>
+    </form>
+{% endblock %}

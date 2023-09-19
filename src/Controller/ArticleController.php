@@ -24,19 +24,8 @@ class ArticleController extends AbstractController
             'articles' => $articles,
         ]);
     }
-
     
-     #[Route("/article/{id}", name:"article_show")]
-    
-    public function show(Article $article): Response
-    {
-        return $this->render('article/show.html.twig', [
-            'article' => $article,
-        ]);
-    }
-
-    
-     #[Route("/article/create", name:"article_create")]
+    #[Route("/article/create", name:"article_create")]
     
     public function create(Request $request, EntityManagerInterface $em): Response
     {
@@ -53,6 +42,15 @@ class ArticleController extends AbstractController
 
         return $this->render('article/create.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+    
+     #[Route("/article/{id}", name:"article_show")]
+    
+    public function show(Article $article): Response
+    {
+        return $this->render('article/show.html.twig', [
+            'article' => $article,
         ]);
     }
 

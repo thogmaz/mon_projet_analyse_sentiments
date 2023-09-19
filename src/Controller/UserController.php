@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Comment;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
+
 
 class UserController extends AbstractController
 {
@@ -27,27 +28,18 @@ class UserController extends AbstractController
         ]);
     }
 
-    
-    #[Route("/user/{id}", name:"user_show")]
-    
-    public function show(User $user): Response
-    {
-        return $this->render('user/show.html.twig', [
-            'user' => $user,
-        ]);
-    }
-
-    
     #[Route("/user/create", name:"user_create")]
     
-    public function create(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function create(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordEncoder): Response
+
     {
+        
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
+            $user->setPassword($passwordEncoder->hashPassword($user, $user->getPassword()));
             $em->persist($user);
             $em->flush();
             
@@ -62,15 +54,26 @@ class UserController extends AbstractController
     }
 
     
+    #[Route("/user/{id}", name:"user_show")]
+    
+    public function show(User $user): Response
+    {
+        return $this->render('user/show.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+
     #[Route("/user/edit/{id}", name:"user_edit")]
     
-    public function edit(User $user, Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function edit(User $user, Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordEncoder): Response
+
     {
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
+            $user->setPassword($passwordEncoder->hashPassword($user, $user->getPassword()));
             $em->flush();
 
             return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
@@ -82,7 +85,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    
+
     #[Route("/user/delete/{id}", name:"user_delete")]
     
     public function delete(User $user, EntityManagerInterface $em): Response
