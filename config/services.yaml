@@ -19,6 +19,11 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+            - '../src/Security/EmailVerifier.php' # Exclude the EmailVerifier class here
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    # Define the EmailVerifier service separately
+    App\Security\EmailVerifier:
+        arguments:
+            $verifyEmailHelper: '@SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface'
+            $mailer: '@mailer'
+            $requestStack: '@request_stack'

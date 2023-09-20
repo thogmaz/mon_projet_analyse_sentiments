@@ -5,6 +5,10 @@
 {% block body %}
     <h1>Bienvenue sur notre blog</h1>
 
+    {% if not app.user %}
+        <a href="{{ path('app_login') }}" class="btn btn-primary">Se connecter</a>
+    {% endif %}
+    
     <h2>Derniers articles</h2>
     <ul>
         {% for article in articles %}
